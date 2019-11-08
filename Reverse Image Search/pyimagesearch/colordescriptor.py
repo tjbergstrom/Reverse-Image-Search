@@ -1,4 +1,3 @@
-# import the necessary packages
 import numpy as np
 import cv2
 import imutils
@@ -64,5 +63,4 @@ class ColorDescriptor:
 		else:
 			hist = cv2.normalize(hist, hist).flatten()
 
-		# return the histogram
 		return hist

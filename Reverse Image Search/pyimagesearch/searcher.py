@@ -1,14 +1,12 @@
-# import the necessary packages
 import numpy as np
 import csv
 
 class Searcher:
 	def __init__(self, indexPath):
-		# store our index path
 		self.indexPath = indexPath
 
 	def search(self, queryFeatures, limit = 10):
-		# initialize our dictionary of results
+		# initialize dictionary of results
 		results = {}
 
 		# open the index file for reading
@@ -46,5 +44,4 @@ class Searcher:
 		d = 0.5 * np.sum([((a - b) ** 2) / (a + b + eps)
 			for (a, b) in zip(histA, histB)])
 
-		# return the chi-squared distance
 		return d
