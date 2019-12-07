@@ -64,5 +64,3 @@ class ColorDescriptor:
 			hist = cv2.normalize(hist, hist).flatten()
 
 		return hist
-
-
