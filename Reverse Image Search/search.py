@@ -1,4 +1,15 @@
 
+# run this file to actually search for similar images
+# run: python3 search.py --index index.csv --query queries/108100.png --result-path dataset
+# --index is path to the index.csv file containing all feature vectors
+# --query is path to the image file you want to upload
+# --result-path is path to the found photos in the dataset
+
+
+
+
+
+
 # sudo apt install python3-numpy
 # sudo apt-get install python3-opencv
 # sudo apt install python3-pip

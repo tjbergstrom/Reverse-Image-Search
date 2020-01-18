@@ -1,3 +1,11 @@
+
+# run this file to set up an index of images to search thru
+# run: python3 index.py --dataset dataset --index index.csv
+# this will take all photos from your dataset and save 
+# the each filename with its feature vector in the index.csv file
+
+
+
 from pyimagesearch.colordescriptor import ColorDescriptor
 import argparse
 import glob
