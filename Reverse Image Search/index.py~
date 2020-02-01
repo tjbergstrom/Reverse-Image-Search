@@ -1,13 +1,8 @@
 
-# run: python3 index.py --dataset dataset --index index.csv
-
 # run this file to set up an index of images to search thru
+# run: python3 index.py --dataset dataset --index index.csv
 # this will take all photos from your dataset and save 
-# each filename with its feature vector in the index.csv file
-
-# need to have a bunch of photos saved in the folder dataset
-# open up the index.csv file to see that the feature vectors were saved
-
+# the each filename with its feature vector in the index.csv file
 
 
 
@@ -37,7 +32,3 @@ for imagePath in glob.glob(args["dataset"] + "/*.jpg"):
 	output.write("%s,%s\n" % (imageID, ",".join(features)))
 
 output.close()
-
-
-
-
