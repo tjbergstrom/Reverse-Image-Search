@@ -1,4 +1,5 @@
 
+
 # run: python3 index.py --dataset dataset --index index.csv
 
 # run this file to set up an index of images to search thru
@@ -7,7 +8,6 @@
 
 # need to have a bunch of photos saved in the folder dataset
 # open up the index.csv file to see that the feature vectors were saved
-
 
 
 

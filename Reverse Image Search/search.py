@@ -11,13 +11,16 @@
 
 
 
-
+# this is everything you need to run:
+# (these are the linux commands)
 
 # sudo apt install python3-numpy
 # sudo apt-get install python3-opencv
 # sudo apt install python3-pip
 # sudo apt install python-pip
 # sudo pip3 install imutils
+
+
 
 from pyimagesearch.colordescriptor import ColorDescriptor
 from pyimagesearch.searcher import Searcher
