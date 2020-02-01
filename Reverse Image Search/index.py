@@ -22,7 +22,7 @@ cd = ColorDescriptor((8, 12, 3))
 output = open(args["index"], "w")
 
 # use glob to grab the image paths and loop over them
-for imagePath in glob.glob(args["dataset"] + "/*.png"):
+for imagePath in glob.glob(args["dataset"] + "/*.jpg"):
 	# extract the image filename) 
 	imageID = imagePath[imagePath.rfind("/") + 1:]
 	image = cv2.imread(imagePath)
