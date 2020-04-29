@@ -1,4 +1,5 @@
 # make an index of feature vectors of every photo in a dataset
+# including all sub directories
 # the search uses that index to find images
 
 # python3 index.py
