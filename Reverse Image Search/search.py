@@ -9,8 +9,8 @@
 # -i = path to the csv index containing all feature vectors
 # -r = path to the found photos in the dataset
 
-from pyimagesearch.colordescriptor import ColorDescriptor
-from pyimagesearch.searcher import Searcher
+from imgsearch.colordescriptor import ColorDescriptor
+from imgsearch.searcher import Searcher
 from imutils import build_montages
 import argparse
 import cv2

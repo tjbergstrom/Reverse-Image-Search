@@ -4,8 +4,7 @@
 # python3 index.py
 # python3 index.py -d photos -i index.csv
 
-
-from pyimagesearch.colordescriptor import ColorDescriptor
+from imgsearch.colordescriptor import ColorDescriptor
 import argparse
 import glob
 import cv2
