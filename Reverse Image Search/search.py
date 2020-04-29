@@ -1,6 +1,6 @@
 # upload an image and search for it
 # display the best match and its location
-# also display up to 9 similar images
+# also display 9 similar images
 
 # python3 search.py -u uploads/img.jpg
 # python3 search.py -u uploads/img.jpg -i index.csv -r dataset
@@ -30,24 +30,22 @@ results = searcher.search(features)
 i = 0
 locs = []
 similars = []
-print(len(results))
 for (score, resultID) in results:
-	location = args["result_path"] + "/" + resultID
-	result = cv2.imread(location)
+	result = cv2.imread(resultID)
 	if(i<1):
-		title = "Best Match: " + location
+		title = "Best Match: " + resultID
 		im = cv2.resize(result, (600, 400))
 		cv2.imshow(title, im)
 		cv2.waitKey(0)
 		i = 1
 	else:
 		similars.append(result)
-		locs.append(location)
+		locs.append(resultID)
+		print(resultID)
 
 
 montage = build_montages(similars, (128, 128), (3, 3))[0]
 cv2.imshow("Similar Images", montage)
-print(locs)
 cv2.waitKey(0)
 
 
