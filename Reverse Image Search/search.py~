@@ -1,0 +1,69 @@
+
+
+# run: python3 search.py --index index.csv --query queries/filename.jpg --result-path dataset
+
+# run this file to actually search for similar images
+# --index is path to the index.csv file containing all feature vectors
+# --query is path to the image file you want to upload
+# --result-path is path to the found photos in the dataset
+
+# need to have the photo filename.jpg in the queries folder
+
+
+
+# this is everything you need to run:
+# (these are the linux commands)
+
+# sudo apt install python3-numpy
+# sudo apt-get install python3-opencv
+# sudo apt install python3-pip
+# sudo apt install python-pip
+# sudo pip3 install imutils
+
+
+
+from pyimagesearch.colordescriptor import ColorDescriptor
+from pyimagesearch.searcher import Searcher
+import argparse
+import cv2
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--index", required = True,
+help = "Path to where the computed index will be stored")
+ap.add_argument("-q", "--query", required = True,
+help = "Path to the query image")
+ap.add_argument("-r", "--result-path", required = True,
+help = "Path to the result path")
+args = vars(ap.parse_args())
+cd = ColorDescriptor((8, 12, 3))
+
+# load the query image
+query = cv2.imread(args["query"])
+features = cd.describe(query)
+
+# perform the search
+searcher = Searcher(args["index"])
+results = searcher.search(features)
+
+# display the query
+#cv2.imshow("Query", query)
+
+# loop over the results
+i = 0
+for (score, resultID) in results:
+	result = cv2.imread(args["result_path"] + "/" + resultID)
+	#cv2.imshow("Result", result)
+	#cv2.waitKey(0)
+	if(i<4):
+		print(args["result_path"] + "/" + resultID)
+		im = cv2.resize(result, (600, 400))
+		cv2.imshow("Result", im)
+		cv2.waitKey(0)
+	i += 1
+
+
+
+
+
+
+
