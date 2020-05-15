@@ -26,7 +26,7 @@ for imagePath in imagePaths:
 	features = cd.describe(image)
 	features = [str(f) for f in features]
 	output.write("%s,%s\n" % (imageID, ",".join(features)))
-	print(imageID)
+	#print(imageID)
 
 output.close()
 

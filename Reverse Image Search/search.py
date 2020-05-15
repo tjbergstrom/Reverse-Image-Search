@@ -3,7 +3,7 @@
 # also display 9 similar images
 
 # python3 search.py -u uploads/img.jpg
-# python3 search.py -u uploads/img.jpg -i index.csv -r dataset
+# python3 search.py -u uploads/img.jpg -i index.csv
 
 # -u = path to the image you want to upload
 # -i = path to the csv index containing all feature vectors
@@ -16,7 +16,6 @@ import argparse
 import cv2
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-r", "--result-path", type=str, default="photos")
 ap.add_argument("-i", "--index", type=str, default="index.csv")
 ap.add_argument("-u", "--upload", required = True)
 args = vars(ap.parse_args())
@@ -33,19 +32,24 @@ similars = []
 for (score, resultID) in results:
 	result = cv2.imread(resultID)
 	if(i<1):
-		title = "Best Match: " + resultID
+		if score < 1.0:
+			title = "Found: " + resultID
+		else:
+			title = "Not Found - Best Match: " + resultID
 		im = cv2.resize(result, (600, 400))
 		cv2.imshow(title, im)
-		cv2.waitKey(0)
+		#cv2.waitKey(0)
 		i = 1
 	else:
 		similars.append(result)
 		locs.append(resultID)
-		print(resultID)
+	print(resultID, "-", score)
 
 
 montage = build_montages(similars, (128, 128), (3, 3))[0]
 cv2.imshow("Similar Images", montage)
+im = cv2.resize(upload, (600, 400))
+cv2.imshow(args["upload"], im)
 cv2.waitKey(0)
 
 

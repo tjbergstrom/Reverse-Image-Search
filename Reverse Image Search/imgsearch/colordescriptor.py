@@ -16,8 +16,8 @@ class ColorDescriptor:
 		# get the center of the image
 		(h, w) = image.shape[:2]
 		(cX, cY) = (int(w * 0.5), int(h * 0.5))
-		# divide itinto four rectangles
-		segments = [(0, cX, 0, cY), (cX, w, 0, cY), 
+		# divide it into four rectangles
+		segments = [(0, cX, 0, cY), (cX, w, 0, cY),
         (cX, w, cY, h),	(0, cX, cY, h)]
 		# make an elliptical mask of the center
 		(axesX, axesY) = (int(w * 0.75) // 2, int(h * 0.75) // 2)
@@ -39,7 +39,7 @@ class ColorDescriptor:
 	def histogram(self, image, mask):
 		# get a 3D color histogram from the masked region
 		hist = cv2.calcHist([image], [0, 1, 2], mask, self.bins,
-			[0, 180, 0, 256, 0, 256])
+		[0, 180, 0, 256, 0, 256])
 		# normalize
 		if imutils.is_cv2():
 			hist = cv2.normalize(hist).flatten()
