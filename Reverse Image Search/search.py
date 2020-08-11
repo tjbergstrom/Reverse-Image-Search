@@ -7,7 +7,6 @@
 
 # -u = path to the image you want to upload
 # -i = path to the csv index containing all feature vectors
-# -r = path to the found photos in the dataset
 
 from imgsearch.colordescriptor import ColorDescriptor
 from imgsearch.searcher import Searcher
