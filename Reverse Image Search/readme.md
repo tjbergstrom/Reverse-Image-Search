@@ -3,7 +3,7 @@ For example, too many duplicates can cause overfitting in machine learning model
 
 Unfortunately, it's a pretty slow O(n) linear search. That's because every image in the index
 calculates a unique distance from an uploaded image, so this obviously can't be sorted.
-It's more of an exercise to see how it works, rather than practical or usefull.
+It's more of an exercise to see how it works, rather than practical or useful.
 
 
 
