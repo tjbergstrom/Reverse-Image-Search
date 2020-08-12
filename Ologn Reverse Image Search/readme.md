@@ -1,3 +1,6 @@
-### Content Based Image Retrieval with a VP-Tree data structure of image hashes 
+### Content Based Image Retrieval with a VP-Tree of image hashes 
 
-### The search complexity is O(log n) 
+## A Vantage-Point Tree is a data structure that reduces search time to O(log n).
+## It takes a position and splits the data points into near/far from the point,
+## and it does this recursively splitting into smaller sets
+## so that neighbors have smaller distances.
