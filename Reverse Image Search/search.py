@@ -8,8 +8,8 @@
 # -u = path to the image you want to upload
 # -i = path to the csv index containing all feature vectors
 
-from imgsearch.colordescriptor import ColorDescriptor
-from imgsearch.searcher import Searcher
+from colordescriptor import ColorDescriptor
+from searcher import Searcher
 from imutils import build_montages
 import argparse
 import cv2
@@ -42,7 +42,7 @@ for (score, resultID) in results:
 	else:
 		similars.append(result)
 		locs.append(resultID)
-	print(resultID, "-", score)
+	print(resultID, " / ", score)
 
 
 montage = build_montages(similars, (128, 128), (3, 3))[0]

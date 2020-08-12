@@ -5,7 +5,7 @@
 # python3 index.py
 # python3 index.py -d photos -i index.csv
 
-from imgsearch.colordescriptor import ColorDescriptor
+from colordescriptor import ColorDescriptor
 from imutils import paths
 import argparse
 import glob
@@ -26,7 +26,7 @@ for imagePath in imagePaths:
 	features = cd.describe(image)
 	features = [str(f) for f in features]
 	output.write("%s,%s\n" % (imageID, ",".join(features)))
-	#print(imageID)
+	print(imageID)
 
 output.close()
 
