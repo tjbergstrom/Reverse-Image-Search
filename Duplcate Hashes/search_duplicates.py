@@ -8,64 +8,67 @@
 # optional arg -s to display the duplicates for assurance
 # optional arg -r to actually remove duplicates for safety
 
+
+from imutils import build_montages
 from imutils import paths
 import numpy as np
 import argparse
 import cv2
+import sys
 import os
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-d", "--dataset", required=True)
-ap.add_argument("-r", "--remove", type=bool, default=False)
-ap.add_argument("-s", "--show", type=bool, default=True)
-args = vars(ap.parse_args())
-hash_size = 8
 
-# paths to all images in the input dataset
-img_paths = list(paths.list_images(args["dataset"]))
-# dictionary of hashes of the images
-hashes = {}
-
-# part one, loop through the input images and generate their hashes
-print("Generating Hashes...")
-for img_path in img_paths:
-	image = cv2.imread(img_path)
-	# convert the image to grayscale - smaller and easier to work with
-	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	# resize with a single column (width)
-	resized = cv2.resize(gray, (hash_size + 1, hash_size))
-	# compute a horizontal gradient between adjacent column pixels
-	diff = resized[:, 1:] > resized[:, :-1]
-	# convert the difference image to a hash
-	img_hash = sum([2 ** i for (i, v) in enumerate(diff.flatten()) if v])
-	# find any other image paths with the same hash and add the current image
-	paths = hashes.get(img_hash, [])
-	# and store the list of paths back in the hashes dictionary
-	paths.append(img_path)
-	hashes[img_hash] = paths
-
-# part two, loop through the hashes and find duplicates
-print("Finding Duplicates...")
-for (img_hash, hashed_paths) in hashes.items():
-	# is there more than one image with the same hash
-	if len(hashed_paths) > 1:
-		# display the duplicates
-		if args["show"]:
-			montage = None
-			for path in hashed_paths:
-				image = cv2.imread(path)
-				image = cv2.resize(image, (150, 150))
-				if montage is None:
-					montage = image
-				else:
-					montage = np.hstack([montage, image])
-			cv2.imshow("Duplicates", montage)
-			cv2.waitKey(0)
-		# remove the duplicates
-		if args["remove"]:
-			for path in hashed_paths[1:]:
-				os.remove(path)
-				print("Duplicate image" + path + "was deleted")
+def generate(img_paths, hash_size=16):
+	hashes = {}
+	for img_path in img_paths:
+		img = cv2.imread(img_path)
+		img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		img = cv2.resize(img, (hash_size + 1, hash_size))
+		diff = img[:, 1:] > img[:, :-1]
+		idx = sum([2 ** i for (i, v) in enumerate(diff.flatten()) if v])
+		loc = hashes.get(idx, [])
+		loc.append(img_path)
+		hashes[idx] = loc
+	return hashes
 
 
+def find_duplicates(hashes, show, remove):
+	for idx, loc in hashes.items():
+		if len(loc) > 1:
+			if show:
+				duplicates = [cv2.imread(i) for i in loc]
+				montage = build_montages(duplicates, (128, 128), (3, 3))[0]
+				cv2.imshow("Duplicates", montage)
+				if cv2.waitKey(900) == ord("s"):
+					continue
+			if remove:
+				for img_path in loc[1:]:
+					os.remove(img_path)
+					print(f"Duplicate {img_path} was deleted")
 
+
+def check(dataset):
+	img_paths = list(paths.list_images(args["dataset"]))
+	if len(img_paths) > 0:
+		return img_paths
+	else:
+		print(f"No images found in {dataset}")
+		sys.exit(1)
+
+
+if __name__ == "__main__":
+	ap = argparse.ArgumentParser()
+	ap.add_argument("-d", "--dataset", required=True)
+	ap.add_argument("-r", "--remove", type=bool, default=False)
+	ap.add_argument("-s", "--show", type=bool, default=True)
+	args = vars(ap.parse_args())
+
+	img_paths = check(args["dataset"])
+
+	hashes = generate(img_paths)
+
+	find_duplicates(hashes, args["show"], args["remove"])
+
+
+
+##
